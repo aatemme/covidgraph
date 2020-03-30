@@ -8,13 +8,13 @@ library(ggpubr)
   big.data <- read.csv("http://covidtracking.com/api/states/daily.csv")
 
 ###### target state  
-  target.state<-"GA"
+  target.state<-"NY"
   data <- big.data %>% filter(state==target.state)
 ######
   
 
 #### add today's data for state if not on covidtracking
-  # add.today <- data.frame(date=c(20200327),positive=c(2001))
+  # add.today <- data.frame(date=c(20200328),positive=c(2366))
   # data <- merge(data,add.today,all=T)
 #####
 
@@ -23,6 +23,8 @@ library(ggpubr)
 data <- data %>% filter(positive>=10) %>% select(date,positive)
 
 data$time <- ymd(data$date)
+
+data <- data %>% arrange(time)
 
 ###### calculate doubling rate over data window
   day.range <- 3  # number of days to fit line over
